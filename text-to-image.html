@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>文图生成 - 珠语者</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">珠语者</div>
+            <ul>
+                <li><a href="index.html">首页</a></li>
+                <li><a href="text-to-image.html" class="active">文图生成</a></li>
+                <li><a href="image-to-3d.html">图生3D</a></li>
+                <li><a href="customize.html">个性定制</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <h1>文字描述生成串珠设计</h1>
+        <div class="input-section">
+            <textarea placeholder="请描述你想要的串珠设计，例如：中国风、简约、七彩..."></textarea>
+            
+            <!-- ★★★ 实验四新增：智能提示标签 ★★★ -->
+            <div class="suggested-tags">
+                <p>试试这些关键词：</p>
+                <span class="tag" data-tag="中国风">中国风</span>
+                <span class="tag" data-tag="简约">简约</span>
+                <span class="tag" data-tag="复古">复古</span>
+                <span class="tag" data-tag="七彩">七彩</span>
+                <span class="tag" data-tag="民族">民族</span>
+            </div>
+            
+            <button id="generate-btn">生成设计图</button>
+            
+            <!-- ★★★ 实验四新增：模拟进度条 ★★★ -->
+            <div class="progress-container" style="display:none;">
+                <p>AI正在生成您的设计...</p>
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+<footer>
+        <p>&copy; 珠语者 </p>
+    </footer>
+
+    <!-- ★★★ 实验四新增：引入文图生成页交互JS ★★★ -->
+    <script src="js/text-to-image.js"></script>
+</body>
+</html>

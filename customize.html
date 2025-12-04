@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个性定制 - 珠语者</title>
+    <link rel="stylesheet" href="css/main.css">
+    <style>
+        /* 个性定制页面的特有样式 */
+        .customize-controls {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .control-group {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+        
+        .control-group h3 {
+            margin-bottom: 1rem;
+            color: #333;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 0.5rem;
+        }
+        
+        .control-item {
+            margin: 1rem 0;
+        }
+        
+        .control-item label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: #555;
+        }
+        
+        .control-item input[type="range"] {
+            width: 100%;
+        }
+        
+        .control-item input[type="color"] {
+            width: 50px;
+            height: 30px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .control-item select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        .preview-container {
+            display: flex;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .preview-box {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .preview-box h4 {
+            margin-bottom: 1rem;
+            color: #333;
+        }
+        
+        .preview-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(45deg, #f0f0f0, #e0e0e0);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: transform 0.3s;
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: transform 0.3s;
+        }
+        
+        .btn-primary:hover, .btn-secondary:hover {
+            transform: translateY(-2px);
+        }
+        
+        .value-display {
+            display: inline-block;
+            margin-left: 10px;
+            font-weight: bold;
+            color: #667eea;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">珠语者</div>
+            <ul>
+                <li><a href="index.html">首页</a></li>
+                <li><a href="text-to-image.html">文图生成</a></li>
+                <li><a href="image-to-3d.html">图生3D</a></li>
+                <li><a href="customize.html" class="active">个性定制</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <h1>个性定制 - 精细调整你的串珠设计</h1>
+        <p>在这里你可以对生成的3D模型进行精细调整，打造独一无二的串珠作品。</p>
+        
+       <div class="preview-container">
+           <div class="preview-box">
+               <h4>原始模型</h4>
+               <div class="preview-image" id="originalPreview">
+                   <div class="bead" style="top:50%; left:50%;"></div>
+               </div>
+           </div>
+           <div class="preview-box">
+               <h4>实时预览 <small>(随参数调整变化)</small></h4>
+               <div class="preview-image" id="livePreview">
+                   <!-- ★★★ 实验四增强：这里会通过JS动态生成珠子 ★★★ -->
+                   <div class="bead" id="targetBead"></div>
+               </div>
+           </div>
+       </div>
+        
+        <div class="customize-controls">
+            <!-- 左侧控制组 -->
+            <div class="control-group">
+                <h3>基础参数</h3>
+                
+                <div class="control-item">
+                    <label for="beadSize">珠子大小: <span id="beadSizeValue" class="value-display">8mm</span></label>
+                    <input type="range" id="beadSize" min="4" max="20" value="8" step="0.5">
+                </div>
+                
+                <div class="control-item">
+                    <label for="beadCount">珠子数量: <span id="beadCountValue" class="value-display">50</span></label>
+                    <input type="range" id="beadCount" min="10" max="200" value="50">
+                </div>
+                
+                <div class="control-item">
+                    <label for="stringColor">串线颜色</label>
+                    <input type="color" id="stringColor" value="#000000">
+                </div>
+            </div>
+            
+            <!-- 右侧控制组 -->
+            <div class="control-group">
+                <h3>高级设置</h3>
+                
+                <div class="control-item">
+                    <label for="beadShape">珠子形状</label>
+                    <select id="beadShape">
+                        <option value="round">圆形</option>
+                        <option value="oval">椭圆形</option>
+                        <option value="cube">方形</option>
+                        <option value="cylinder">柱形</option>
+                        <option value="flower">花形</option>
+                    </select>
+                </div>
+                
+                <div class="control-item">
+                    <label for="materialType">材质类型</label>
+                    <select id="materialType">
+                        <option value="glass">玻璃珠</option>
+                        <option value="crystal">水晶珠</option>
+                        <option value="wood">木珠</option>
+                        <option value="ceramic">陶瓷珠</option>
+                        <option value="pearl">珍珠</option>
+                    </select>
+                </div>
+                
+                <div class="control-item">
+                    <label for="patternStyle">排列样式</label>
+                    <select id="patternStyle">
+                        <option value="single">单排</option>
+                        <option value="double">双排</option>
+                        <option value="crisscross">交叉排列</option>
+                        <option value="spiral">螺旋排列</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        
+        <div class="action-buttons">
+            <button class="btn-primary" onclick="applyChanges()">应用调整</button>
+            <button class="btn-secondary" onclick="resetChanges()">重置参数</button>
+            <button class="btn-primary" onclick="saveDesign()">保存设计</button>
+        </div>
+    </main>
+    
+    <script>
+        // 实时更新滑块值的显示
+        document.getElementById('beadSize').addEventListener('input', function() {
+            document.getElementById('beadSizeValue').textContent = this.value + 'mm';
+        });
+        
+        document.getElementById('beadCount').addEventListener('input', function() {
+            document.getElementById('beadCountValue').textContent = this.value;
+        });
+        
+        // 功能函数
+        function applyChanges() {
+            alert('调整已应用！预览已更新。');
+            // 这里实际项目中会有更新3D预览的逻辑
+        }
+        
+        function resetChanges() {
+            document.getElementById('beadSize').value = 8;
+            document.getElementById('beadSizeValue').textContent = '8mm';
+            document.getElementById('beadCount').value = 50;
+            document.getElementById('beadCountValue').textContent = '50';
+            document.getElementById('stringColor').value = '#000000';
+            document.getElementById('beadShape').value = 'round';
+            document.getElementById('materialType').value = 'glass';
+            document.getElementById('patternStyle').value = 'single';
+            alert('所有参数已重置为默认值！');
+        }
+        
+        function saveDesign() {
+            alert('设计已保存！您可以在个人中心查看已保存的设计。');
+        }
+    </script>
+<footer>
+        <p>&copy;珠语者</p>
+    </footer>
+
+    <!-- ★★★ 实验四新增：引入个性定制页交互JS ★★★ -->
+    <script src="js/customize.js"></script>
+</body>
+</html>
